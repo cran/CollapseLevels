@@ -7,7 +7,7 @@
 #' @param col    A character respresenting the  name of the attribute . The attribute can either be numeric or categorical
 #'
 #' @param resp   A character respresenting the  name of the binary outcome variable
-#'               The binary outcome variable must be a factor with two levels
+#'               The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values
 #'
 #' @param bins   A number denoting the number of bins.Default value is 10
 #'
@@ -20,10 +20,6 @@
 #' # Load the German_Credit data set supplied with this package
 #'
 #' data("German_Credit")
-#'
-#' library(dplyr)
-#'
-#' library(lazyeval)
 #'
 #' displayWOE(German_Credit,col="Credit_History",resp="Good_Bad")
 #'
@@ -43,9 +39,12 @@ displayWOE<-function(dset,col="xyz",resp="y",adjFactor=0.5,bins=10)
   {
 
     d[[resp]]<-as.numeric(d[[resp]])
-    d[[resp]]<-ifelse(d[[resp]]==2,1,0)
+    d[[resp]]<-ifelse(d[[resp]]==max(d[[resp]]),1,0)
   }
-
+  if(class(dset[[resp]])=="numeric" | class(dset[[resp]])=="integer")
+  {
+    d[[resp]]<-ifelse(d[[resp]]==max(d[[resp]]),1,0)
+  }
 
   if(class(d[[col]])=="numeric" | class(d[[col]])=="integer")
   {

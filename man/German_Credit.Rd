@@ -29,11 +29,14 @@ This data set classifies customers as "Good" or "Bad" as per their credit risks.
     \item{\code{Dependents}}{a numeric vector}
     \item{\code{Telephone}}{a factor with levels \code{A191} \code{A192}}
     \item{\code{ForeignWorker}}{a factor with levels \code{A201} \code{A202}}
-    \item{\code{Good_Bad}}{a factor with levels \code{1} \code{2}}
+    \item{\code{Good_Bad}}{a numeric vector}
   }
 }
+
 \source{
-https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)}
+https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)
+}
+
 \examples{
 data(German_Credit)
 str(German_Credit)

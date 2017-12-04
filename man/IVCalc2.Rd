@@ -10,7 +10,7 @@ IVCalc2(dset, resp = "y", bins = 10, adjFactor = 0.5)
 \item{dset}{The data frame containing the data set}
 
 \item{resp}{A character respresenting the  name of the binary outcome variable
-The binary outcome variable must be a factor with two levels}
+The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values}
 
 \item{bins}{A number denoting the number of bins.Default value is 10}
 
@@ -27,10 +27,6 @@ This function displays the Information Values of all the attributes in the data 
 # Load the German_Credit data set supplied with this package
 
 data("German_Credit")
-
-library(dplyr)
-
-# Create an empty list
 
 d<-data.frame()
 

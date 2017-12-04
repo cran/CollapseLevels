@@ -13,7 +13,7 @@ displayResponseRatebyLevels(dset, col = "job", resp = "Good_Bad",
 \item{col}{A character respresenting the  name of the attribute . The attribute can either be numeric or categorical}
 
 \item{resp}{A character respresenting the  name of the binary outcome variable
-The binary outcome variable must be a factor with two levels}
+The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values}
 
 \item{bins}{A number denoting the number of bins.Default value is 10}
 
@@ -27,10 +27,6 @@ This function displays the response percents  of the levels of an attribute.
 # Load the German_Credit data set supplied with this package
 
 data("German_Credit")
-
-library(dplyr)
-
-library(lazyeval)
 
 displayResponseRatebyLevels(German_Credit,col="Credit_History",resp="Good_Bad")
 

@@ -12,7 +12,7 @@ displayWOE(dset, col = "xyz", resp = "y", adjFactor = 0.5, bins = 10)
 \item{col}{A character respresenting the  name of the attribute . The attribute can either be numeric or categorical}
 
 \item{resp}{A character respresenting the  name of the binary outcome variable
-The binary outcome variable must be a factor with two levels}
+The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values}
 
 \item{adjFactor}{A number or a decimal denoting what is to be added to the number of responses (binary outcome variable is 1 ) or to the number of non responses (binary outcome variable is 0) if either is zero for any level of the attribute}
 
@@ -26,10 +26,6 @@ This function displays the Weight of Evidence of the levels of an attribute.
 # Load the German_Credit data set supplied with this package
 
 data("German_Credit")
-
-library(dplyr)
-
-library(lazyeval)
 
 displayWOE(German_Credit,col="Credit_History",resp="Good_Bad")
 

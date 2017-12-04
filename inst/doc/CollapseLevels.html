@@ -12,7 +12,7 @@
 
 <meta name="author" content="Krishanu Mukherjee" />
 
-<meta name="date" content="2017-10-27" />
+<meta name="date" content="2017-12-04" />
 
 <title>CollapseLevels</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">CollapseLevels</h1>
 <h4 class="author"><em>Krishanu Mukherjee</em></h4>
-<h4 class="date"><em>2017-10-27</em></h4>
+<h4 class="date"><em>2017-12-04</em></h4>
 
 
 
@@ -79,13 +79,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>It also provides functions to compute and display Information Value, and Weight of Evidence for attributes,and to convert numeric variables to categorical by binning.</p>
 <p>These functions only work for binary classification problems.</p>
 <p>This package provides utility functions for the data exploration part of binary classification.</p>
-<p>The binary outcome variable must be coded as a factor.</p>
+<p>The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values.</p>
 <div id="data-set" class="section level2">
 <h2>Data Set</h2>
-<p>This package includes a data set named “German_Credit”. This data set classifies customers as “Good” or “Bad” as per their credit risks. This data set was contributed by Professor Dr. Hans Hofmann,and can be downloaded from the UCI Machine Learning Repository. The outcome variable of the downloaded data set has been transformed to a factor variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CollapseLevels)
-
-<span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)
+<p>This package includes a data set named “German_Credit”. This data set classifies customers as “Good” or “Bad” as per their credit risks. This data set was contributed by Professor Dr. Hans Hofmann,and can be downloaded from the UCI Machine Learning Repository. The outcome variable of the downloaded data set is an integer with two unique values 1, and 2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CollapseLevels)</code></pre></div>
+<pre><code>## Loading required package: magrittr</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)
 
 <span class="kw">str</span>(German_Credit)</code></pre></div>
 <pre><code>## 'data.frame':    1000 obs. of  21 variables:
@@ -109,7 +109,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  $ Dependents                 : int  1 1 2 2 2 2 1 1 1 1 ...
 ##  $ Telephone                  : Factor w/ 2 levels &quot;A191&quot;,&quot;A192&quot;: 2 1 1 1 1 2 1 2 1 1 ...
 ##  $ ForeignWorker              : Factor w/ 2 levels &quot;A201&quot;,&quot;A202&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Good_Bad                   : Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 2 1 1 2 1 1 1 1 2 ...</code></pre>
+##  $ Good_Bad                   : int  1 2 1 1 2 1 1 1 1 2 ...</code></pre>
 </div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>
@@ -120,18 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We will explore the levels of the attribute “Credit_History” in the German_Gredit data set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)
 
-<span class="co"># library dplyr must be loaded</span>
-
-<span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
+<span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
 
 l&lt;-<span class="kw">list</span>()
 
@@ -171,9 +160,7 @@ l$Credit_History</code></pre></div>
 <h3>numericToCategorical</h3>
 <p>This functions categorizes a numeric attribute.</p>
 <p>We will categorize the numeric attribute “Duration” in the German_Gredit data set</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
 l&lt;-<span class="kw">list</span>()
 
 <span class="co"># Call the function numericToCategorical to categorize the numeric attribute Duration</span>
@@ -252,9 +239,7 @@ l$collapseLevels</code></pre></div>
 <div id="ivcalc2" class="section level3">
 <h3>IVCalc2</h3>
 <p>This function displays the Information Values ( not level wise ) for all the attributes</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="co"># Create an empty data frame </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty data frame </span>
 l&lt;-<span class="kw">list</span>()
 
 <span class="co"># dset holds the data set</span>
@@ -300,9 +285,7 @@ d</code></pre></div>
 <div id="ivcalc" class="section level3">
 <h3>IVCalc</h3>
 <p>This function displays the Information Values by the levels of an attribute This information is displayed for all attributes in the data set</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="co"># Create an empty list to hold the data structures returned by IVCalc function</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty list to hold the data structures returned by IVCalc function</span>
 l&lt;-<span class="kw">list</span>()
 
 <span class="co"># dset holds the data set</span>
@@ -344,12 +327,7 @@ l$Credit_History</code></pre></div>
 <div id="displaywoe" class="section level3">
 <h3>displayWOE</h3>
 <p>This function displays the Weight of Evidence of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr and lazyeval must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(lazyeval)
-
-
-<span class="co"># dset holds the data set</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
 <span class="co"># German_Credit is the data set</span>
 <span class="co"># col specifies the name of the variable for which we want to display the Weight of Evidence values</span>
 <span class="co"># resp specifies the name of the binary response variable in the data set</span>
@@ -369,12 +347,7 @@ l$Credit_History</code></pre></div>
 <div id="displayresponseratebylevels" class="section level3">
 <h3>displayResponseRatebyLevels</h3>
 <p>This function displays the response percentages of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr and lazyeval must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(lazyeval)
-
-
-<span class="co"># dset holds the data set</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
 <span class="co"># German_Credit is the data set</span>
 <span class="co"># col specifies the name of the variable for which we want to display the response percents</span>
 <span class="co"># resp specifies the name of the binary response variable in the data set</span>
@@ -394,12 +367,7 @@ l$Credit_History</code></pre></div>
 <div id="displayiv" class="section level3">
 <h3>displayIV</h3>
 <p>This function displays the Information Values of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library dplyr and lazyeval must be loaded</span>
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(lazyeval)
-
-
-<span class="co"># dset holds the data set</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
 <span class="co"># German_Credit is the data set</span>
 <span class="co"># col specifies the name of the variable for which we want to display the IV values</span>
 <span class="co"># resp specifies the name of the binary response variable in the data set</span>

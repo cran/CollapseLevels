@@ -10,9 +10,6 @@ str(German_Credit)
 
 data("German_Credit")
 
-# library dplyr must be loaded
-
-library(dplyr)
 # Create an empty list to hold the data structures returned by numericToCategorical
 
 l<-list()
@@ -34,8 +31,6 @@ l$Credit_History
 
 
 ## ------------------------------------------------------------------------
-# Library dplyr must be loaded
-library(dplyr)
 # Create an empty list to hold the data structures returned by numericToCategorical
 l<-list()
 
@@ -77,8 +72,6 @@ l$collapseLevels
 
 ## ------------------------------------------------------------------------
 
-# Library dplyr must be loaded
-library(dplyr)
 # Create an empty data frame 
 l<-list()
 
@@ -103,8 +96,6 @@ d
 
 ## ------------------------------------------------------------------------
 
-# Library dplyr must be loaded
-library(dplyr)
 # Create an empty list to hold the data structures returned by IVCalc function
 l<-list()
 
@@ -131,11 +122,6 @@ l$Credit_History
 
 ## ------------------------------------------------------------------------
 
-# Library dplyr and lazyeval must be loaded
-library(dplyr)
-library(lazyeval)
-
-
 # dset holds the data set
 # German_Credit is the data set
 # col specifies the name of the variable for which we want to display the Weight of Evidence values
@@ -156,11 +142,6 @@ displayWOE(German_Credit,col="Job",resp="Good_Bad")
 
 ## ------------------------------------------------------------------------
 
-# Library dplyr and lazyeval must be loaded
-library(dplyr)
-library(lazyeval)
-
-
 # dset holds the data set
 # German_Credit is the data set
 # col specifies the name of the variable for which we want to display the response percents
@@ -180,11 +161,6 @@ displayResponseRatebyLevels(German_Credit,col="Account_Balance",resp="Good_Bad")
 
 
 ## ------------------------------------------------------------------------
-
-# Library dplyr and lazyeval must be loaded
-library(dplyr)
-library(lazyeval)
-
 
 # dset holds the data set
 # German_Credit is the data set
