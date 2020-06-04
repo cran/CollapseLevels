@@ -1,4 +1,4 @@
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(CollapseLevels)
 
 data("German_Credit")
@@ -6,7 +6,7 @@ data("German_Credit")
 str(German_Credit)
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 data("German_Credit")
 
@@ -30,7 +30,7 @@ l<-levelsCollapser(German_Credit,resp="Good_Bad",bins=10)
 l$Credit_History
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Create an empty list to hold the data structures returned by numericToCategorical
 l<-list()
 
@@ -70,7 +70,7 @@ l$collapseLevels
 
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 # Create an empty data frame 
 l<-list()
@@ -94,7 +94,7 @@ d<-IVCalc2(dset=German_Credit,resp="Good_Bad")
 
 d
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 # Create an empty list to hold the data structures returned by IVCalc function
 l<-list()
@@ -120,7 +120,7 @@ l<-IVCalc(dset=German_Credit,resp="Good_Bad")
 l$Credit_History
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 # dset holds the data set
 # German_Credit is the data set
@@ -140,7 +140,7 @@ displayWOE(German_Credit,col="Job",resp="Good_Bad")
 
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 # dset holds the data set
 # German_Credit is the data set
@@ -160,7 +160,7 @@ displayResponseRatebyLevels(German_Credit,col="Account_Balance",resp="Good_Bad")
 
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 # dset holds the data set
 # German_Credit is the data set

@@ -104,18 +104,18 @@ IVCalc<-function(dset,resp="y",bins=10,adjFactor=0.5)
 
       }
 
-      df_tot <- d %>%  dplyr::group_by_(naml) %>% dplyr::summarise(tot=n())
+      df_tot <- d %>%  dplyr::group_by_(naml) %>% dplyr::summarise(tot=dplyr::n())
       df_tot<-as.data.frame(df_tot)
 
 
-      df_one <- d %>%  dplyr::filter(d[[resp]]==1) %>% dplyr::group_by_(naml) %>% dplyr::summarise(bad=n())
+      df_one <- d %>%  dplyr::filter(d[[resp]]==1) %>% dplyr::group_by_(naml) %>% dplyr::summarise(bad=dplyr::n())
 
       df_one<-as.data.frame(df_one)
 
 
       one_rate <- (df_one[,2]/sum(df_one[,2]))*100
 
-      df_zero <- d %>%  dplyr::filter(d[[resp]]==0) %>% dplyr::group_by_(naml) %>% dplyr::summarise(good=n())
+      df_zero <- d %>%  dplyr::filter(d[[resp]]==0) %>% dplyr::group_by_(naml) %>% dplyr::summarise(good=dplyr::n())
 
       df_zero<-as.data.frame(df_zero)
 

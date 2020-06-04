@@ -1,65 +1,298 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Krishanu Mukherjee" />
 
-<meta name="date" content="2017-12-04" />
+<meta name="date" content="2020-06-04" />
 
 <title>CollapseLevels</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -69,26 +302,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">CollapseLevels</h1>
-<h4 class="author"><em>Krishanu Mukherjee</em></h4>
-<h4 class="date"><em>2017-12-04</em></h4>
+<h4 class="author">Krishanu Mukherjee</h4>
+<h4 class="date">2020-06-04</h4>
 
 
 
-<p>This package provides utility functions for binary classification problems.</p>
-<p>This package provides functions to collapse levels of an attribute based on response rates.</p>
-<p>It also provides functions to compute and display Information Value, and Weight of Evidence for attributes,and to convert numeric variables to categorical by binning.</p>
+<p>Provides utility functions for binary classification problems.</p>
+<p>‘CollapseLevels’ provides functions to collapse levels of an attribute based on response rates.</p>
+<p>Also provides functions to compute and display Information Value, and Weight of Evidence for attributes,and to convert numeric variables to categorical by binning.</p>
 <p>These functions only work for binary classification problems.</p>
 <p>This package provides utility functions for the data exploration part of binary classification.</p>
 <p>The binary outcome variable may be a factor with two levels or an integer (or numeric ) with two unique values.</p>
 <div id="data-set" class="section level2">
 <h2>Data Set</h2>
 <p>This package includes a data set named “German_Credit”. This data set classifies customers as “Good” or “Bad” as per their credit risks. This data set was contributed by Professor Dr. Hans Hofmann,and can be downloaded from the UCI Machine Learning Repository. The outcome variable of the downloaded data set is an integer with two unique values 1, and 2.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CollapseLevels)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(CollapseLevels)</span></code></pre></div>
 <pre><code>## Loading required package: magrittr</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)
-
-<span class="kw">str</span>(German_Credit)</code></pre></div>
-<pre><code>## 'data.frame':    1000 obs. of  21 variables:
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">str</span>(German_Credit)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    1000 obs. of  21 variables:
 ##  $ Account_Balance            : Factor w/ 4 levels &quot;A11&quot;,&quot;A12&quot;,&quot;A13&quot;,..: 1 2 4 1 1 4 4 2 4 2 ...
 ##  $ Duration                   : int  6 48 12 42 24 36 24 36 12 30 ...
 ##  $ Credit_History             : Factor w/ 5 levels &quot;A30&quot;,&quot;A31&quot;,&quot;A32&quot;,..: 5 3 5 3 4 3 3 3 3 5 ...
@@ -118,26 +351,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>levelsCollapser</h3>
 <p>This function displays the response rates by the levels of an attribute Levels with similar response rates may be combined</p>
 <p>We will explore the levels of the attribute “Credit_History” in the German_Gredit data set</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)
-
-<span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
-
-l&lt;-<span class="kw">list</span>()
-
-l&lt;-<span class="kw">levelsCollapser</span>(German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>,<span class="dt">bins=</span><span class="dv">10</span>)
-
-<span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins for categorizing/binning numeric variables</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># If you are supplying default values for bin  , the parameter need not be specified in the function </span>
-<span class="co"># The function returns a list.</span>
-<span class="co"># For every attribute in the data set , the list contains a table thats shows the response rates</span>
-<span class="co"># by the levels of the attribute</span>
-<span class="co"># Collapse levels with similar response percentages.</span>
-
-l$Credit_History</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">data</span>(<span class="st">&quot;German_Credit&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>l&lt;-<span class="kw">list</span>()</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>l&lt;-<span class="kw">levelsCollapser</span>(German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>,<span class="dt">bins=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## Warning: `group_by_()` is deprecated as of dplyr 0.7.0.
+## Please use `group_by()` instead.
+## See vignette(&#39;programming&#39;) for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># bins denotes the number of bins for categorizing/binning numeric variables</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># If you are supplying default values for bin  , the parameter need not be specified in the function </span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># The function returns a list.</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># For every attribute in the data set , the list contains a table thats shows the response rates</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co"># by the levels of the attribute</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co"># Collapse levels with similar response percentages.</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>l<span class="op">$</span>Credit_History</span></code></pre></div>
 <pre><code>##   Credit_History tot response non_response response_pct non_response_pct
 ## 1            A30  40       25           15     8.333333         2.142857
 ## 2            A31  49       28           21     9.333333         3.000000
@@ -160,78 +397,78 @@ l$Credit_History</code></pre></div>
 <h3>numericToCategorical</h3>
 <p>This functions categorizes a numeric attribute.</p>
 <p>We will categorize the numeric attribute “Duration” in the German_Gredit data set</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span>
-l&lt;-<span class="kw">list</span>()
-
-<span class="co"># Call the function numericToCategorical to categorize the numeric attribute Duration</span>
-<span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># col specifies the name of the numeric variable we want to categorize</span>
-<span class="co"># resp specifies the name of the binary response variable </span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-
-
-l&lt;-<span class="kw">numericToCategorical</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">col=</span><span class="st">&quot;Duration&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>,<span class="dt">bins=</span><span class="dv">10</span>,<span class="dt">adjFactor=</span><span class="fl">0.5</span>)
-
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-<span class="co">#  l$categoricalVariable gives the binned categorized variable. </span>
-<span class="co">#  A bin [a,b) denotes &gt;=a and &lt;b</span>
-<span class="co">#  A bin [a,b] denotes &gt;=a and &lt;=b</span>
-
-<span class="kw">head</span>(l$categoricalVariable)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Create an empty list to hold the data structures returned by numericToCategorical</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>l&lt;-<span class="kw">list</span>()</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># Call the function numericToCategorical to categorize the numeric attribute Duration</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># col specifies the name of the numeric variable we want to categorize</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co"># resp specifies the name of the binary response variable </span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a>l&lt;-<span class="kw">numericToCategorical</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">col=</span><span class="st">&quot;Duration&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>,<span class="dt">bins=</span><span class="dv">10</span>,<span class="dt">adjFactor=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co"># function call</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#  l$categoricalVariable gives the binned categorized variable. </span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#  A bin [a,b) denotes &gt;=a and &lt;b</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#  A bin [a,b] denotes &gt;=a and &lt;=b</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="kw">head</span>(l<span class="op">$</span>categoricalVariable)</span></code></pre></div>
 <pre><code>## [1] [0,9) [0,9) [0,9) [0,9) [0,9) [0,9)
-## 8 Levels: [0,9) [9,12) [12,15) [15,18) [18,24) [24,30) ... [36,72]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  l$IVTable gives  the Information values of the levels of the binned categorized variable</span>
-
-l$IVTable</code></pre></div>
-<pre><code>##   categoricalDuration tot response non_response response_pct
-## 1               [0,9)  94       10           84   0.03333333
-## 2              [9,12)  86       17           69   0.05666667
-## 3             [12,15) 187       50          137   0.16666667
-## 4             [15,18)  66       13           53   0.04333333
-## 5             [18,24) 153       52          101   0.17333333
-## 6             [24,30) 201       62          139   0.20666667
-## 7             [30,36)  43       14           29   0.04666667
-## 8             [36,72] 170       82           88   0.27333333
-##   non_response_pct         woe           iv
-## 1       0.12000000  1.28093385 0.1110142666
-## 2       0.09857143  0.55359530 0.0231982792
-## 3       0.19571429  0.16066006 0.0046667922
-## 4       0.07571429  0.55804470 0.0180700187
-## 5       0.14428571 -0.18342106 0.0053279451
-## 6       0.19857143 -0.03995831 0.0003234721
-## 7       0.04142857 -0.11905936 0.0006236443
-## 8       0.12571429 -0.77668029 0.1146528052</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  l$IV gives the Information Value for the binned categorized variable</span>
-
-l$IV</code></pre></div>
+## Levels: [0,9) [9,12) [12,15) [15,18) [18,24) [24,30) [30,36) [36,72]</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">#  l$IVTable gives  the Information values of the levels of the binned categorized variable</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>l<span class="op">$</span>IVTable</span></code></pre></div>
+<pre><code>##   categoricalDuration tot response non_response response_pct non_response_pct
+## 1               [0,9)  94       10           84   0.03333333       0.12000000
+## 2              [9,12)  86       17           69   0.05666667       0.09857143
+## 3             [12,15) 187       50          137   0.16666667       0.19571429
+## 4             [15,18)  66       13           53   0.04333333       0.07571429
+## 5             [18,24) 153       52          101   0.17333333       0.14428571
+## 6             [24,30) 201       62          139   0.20666667       0.19857143
+## 7             [30,36)  43       14           29   0.04666667       0.04142857
+## 8             [36,72] 170       82           88   0.27333333       0.12571429
+##           woe           iv
+## 1  1.28093385 0.1110142666
+## 2  0.55359530 0.0231982792
+## 3  0.16066006 0.0046667922
+## 4  0.55804470 0.0180700187
+## 5 -0.18342106 0.0053279451
+## 6 -0.03995831 0.0003234721
+## 7 -0.11905936 0.0006236443
+## 8 -0.77668029 0.1146528052</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#  l$IV gives the Information Value for the binned categorized variable</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>l<span class="op">$</span>IV</span></code></pre></div>
 <pre><code>## [1] 0.2778772</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  l$collapseLevels  gives a table of the response rates by the levels of the categorized variable</span>
-<span class="co">#  Levels with similar response rates may be collapsed</span>
-
-l$collapseLevels</code></pre></div>
-<pre><code>##   categoricalDuration tot response non_response response_pct
-## 1               [0,9)  94       10           84     3.333333
-## 4             [15,18)  66       13           53     4.333333
-## 7             [30,36)  43       14           29     4.666667
-## 2              [9,12)  86       17           69     5.666667
-## 3             [12,15) 187       50          137    16.666667
-## 5             [18,24) 153       52          101    17.333333
-## 6             [24,30) 201       62          139    20.666667
-## 8             [36,72] 170       82           88    27.333333
-##   non_response_pct response_pct_change
-## 1        12.000000            0.000000
-## 4         7.571429           23.076923
-## 7         4.142857            7.142857
-## 2         9.857143           17.647059
-## 3        19.571429           66.000000
-## 5        14.428571            3.846154
-## 6        19.857143           16.129032
-## 8        12.571429           24.390244</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#  l$collapseLevels  gives a table of the response rates by the levels of the categorized variable</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#  Levels with similar response rates may be collapsed</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>l<span class="op">$</span>collapseLevels</span></code></pre></div>
+<pre><code>##   categoricalDuration tot response non_response response_pct non_response_pct
+## 1               [0,9)  94       10           84     3.333333        12.000000
+## 4             [15,18)  66       13           53     4.333333         7.571429
+## 7             [30,36)  43       14           29     4.666667         4.142857
+## 2              [9,12)  86       17           69     5.666667         9.857143
+## 3             [12,15) 187       50          137    16.666667        19.571429
+## 5             [18,24) 153       52          101    17.333333        14.428571
+## 6             [24,30) 201       62          139    20.666667        19.857143
+## 8             [36,72] 170       82           88    27.333333        12.571429
+##   response_pct_change
+## 1            0.000000
+## 4           23.076923
+## 7            7.142857
+## 2           17.647059
+## 3           66.000000
+## 5            3.846154
+## 6           16.129032
+## 8           24.390244</code></pre>
 <p>The change in response_pct from level [15,18) to [30,36) is only 7 percent .</p>
 <p>So these levels may be combined.</p>
 <p>Similarly levels [12,15), and [18,24) may be combined.</p>
@@ -239,27 +476,27 @@ l$collapseLevels</code></pre></div>
 <div id="ivcalc2" class="section level3">
 <h3>IVCalc2</h3>
 <p>This function displays the Information Values ( not level wise ) for all the attributes</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty data frame </span>
-l&lt;-<span class="kw">list</span>()
-
-<span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-<span class="co"># The function returns a data frame.</span>
-<span class="co"># For every attribute, the function displays the information values for the attribute</span>
-
-
-d&lt;-<span class="kw">IVCalc2</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)
-
-
-d</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Create an empty data frame </span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>l&lt;-<span class="kw">list</span>()</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co"># function call</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a><span class="co"># The function returns a data frame.</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="co"># For every attribute, the function displays the information values for the attribute</span></span>
+<span id="cb17-16"><a href="#cb17-16"></a></span>
+<span id="cb17-17"><a href="#cb17-17"></a></span>
+<span id="cb17-18"><a href="#cb17-18"></a>d&lt;-<span class="kw">IVCalc2</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</span>
+<span id="cb17-19"><a href="#cb17-19"></a></span>
+<span id="cb17-20"><a href="#cb17-20"></a></span>
+<span id="cb17-21"><a href="#cb17-21"></a>d</span></code></pre></div>
 <pre><code>##                       Variable          IV
 ## 1              Account_Balance 0.666011503
 ## 2                     Duration 0.277877223
@@ -285,28 +522,28 @@ d</code></pre></div>
 <div id="ivcalc" class="section level3">
 <h3>IVCalc</h3>
 <p>This function displays the Information Values by the levels of an attribute This information is displayed for all attributes in the data set</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create an empty list to hold the data structures returned by IVCalc function</span>
-l&lt;-<span class="kw">list</span>()
-
-<span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-<span class="co"># The function returns a list.</span>
-<span class="co"># For every attribute, the function displays the information values by levels of the</span>
-<span class="co"># attribute . It also displays the Information Value for the entire attribute</span>
-
-l&lt;-<span class="kw">IVCalc</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)
-
-<span class="co">#Explore Information Values for the attribute Credit_History</span>
-
-l$Credit_History</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Create an empty list to hold the data structures returned by IVCalc function</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>l&lt;-<span class="kw">list</span>()</span>
+<span id="cb19-3"><a href="#cb19-3"></a></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a><span class="co"># function call</span></span>
+<span id="cb19-14"><a href="#cb19-14"></a><span class="co"># The function returns a list.</span></span>
+<span id="cb19-15"><a href="#cb19-15"></a><span class="co"># For every attribute, the function displays the information values by levels of the</span></span>
+<span id="cb19-16"><a href="#cb19-16"></a><span class="co"># attribute . It also displays the Information Value for the entire attribute</span></span>
+<span id="cb19-17"><a href="#cb19-17"></a></span>
+<span id="cb19-18"><a href="#cb19-18"></a>l&lt;-<span class="kw">IVCalc</span>(<span class="dt">dset=</span>German_Credit,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</span>
+<span id="cb19-19"><a href="#cb19-19"></a></span>
+<span id="cb19-20"><a href="#cb19-20"></a><span class="co">#Explore Information Values for the attribute Credit_History</span></span>
+<span id="cb19-21"><a href="#cb19-21"></a></span>
+<span id="cb19-22"><a href="#cb19-22"></a>l<span class="op">$</span>Credit_History</span></code></pre></div>
 <pre><code>## $IVTable
 ##   Credit_History tot response non_response response_pct non_response_pct
 ## 1            A30  40       25           15   0.08333333       0.02142857
@@ -327,65 +564,73 @@ l$Credit_History</code></pre></div>
 <div id="displaywoe" class="section level3">
 <h3>displayWOE</h3>
 <p>This function displays the Weight of Evidence of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># col specifies the name of the variable for which we want to display the Weight of Evidence values</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-
-<span class="co"># Display the Weight of Evidence for the levels of the Job attribute</span>
-
-<span class="kw">displayWOE</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Job&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co"># col specifies the name of the variable for which we want to display the Weight of Evidence values</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="co"># function call</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="co"># Display the Weight of Evidence for the levels of the Job attribute</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="kw">displayWOE</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Job&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Use of `df[[1]]` is discouraged. Use `.data[[1]]` instead.</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="displayresponseratebylevels" class="section level3">
 <h3>displayResponseRatebyLevels</h3>
 <p>This function displays the response percentages of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># col specifies the name of the variable for which we want to display the response percents</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-
-<span class="co"># Display the response percentages for the levels of the Account_Balance attribute</span>
-
-<span class="kw">displayResponseRatebyLevels</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Account_Balance&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co"># col specifies the name of the variable for which we want to display the response percents</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a><span class="co"># function call</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a></span>
+<span id="cb23-13"><a href="#cb23-13"></a><span class="co"># Display the response percentages for the levels of the Account_Balance attribute</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a></span>
+<span id="cb23-15"><a href="#cb23-15"></a><span class="kw">displayResponseRatebyLevels</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Account_Balance&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Use of `df[[1]]` is discouraged. Use `.data[[1]]` instead.</code></pre>
+<pre><code>## Warning: Use of `df[[&quot;response_pct&quot;]]` is discouraged. Use
+## `.data[[&quot;response_pct&quot;]]` instead.</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="displayiv" class="section level3">
 <h3>displayIV</h3>
 <p>This function displays the Information Values of the levels of an attribute.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dset holds the data set</span>
-<span class="co"># German_Credit is the data set</span>
-<span class="co"># col specifies the name of the variable for which we want to display the IV values</span>
-<span class="co"># resp specifies the name of the binary response variable in the data set</span>
-<span class="co"># bins denotes the number of bins</span>
-<span class="co"># Default value for the parameter bin is 10</span>
-<span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span>
-<span class="co"># a level of the attribute if the response or non_response is zero for that level</span>
-<span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span>
-<span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span>
-<span class="co"># function call</span>
-
-<span class="co"># Display the IV values for the levels of the Account_Balance attribute</span>
-
-<span class="kw">displayIV</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Account_Balance&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># dset holds the data set</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># German_Credit is the data set</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co"># col specifies the name of the variable for which we want to display the IV values</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co"># resp specifies the name of the binary response variable in the data set</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co"># bins denotes the number of bins</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co"># Default value for the parameter bin is 10</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co"># adjFactor denotes what is to be added to the response or non_response values for</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co"># a level of the attribute if the response or non_response is zero for that level</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co"># Default value of bins is 10, and that of adjFactor is 0.5.</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co"># If you are supplying default values for these parameters , then they need not be specified in the</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co"># function call</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co"># Display the IV values for the levels of the Account_Balance attribute</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="kw">displayIV</span>(German_Credit,<span class="dt">col=</span><span class="st">&quot;Account_Balance&quot;</span>,<span class="dt">resp=</span><span class="st">&quot;Good_Bad&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Use of `df[[1]]` is discouraged. Use `.data[[1]]` instead.</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

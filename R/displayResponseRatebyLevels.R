@@ -89,14 +89,14 @@ displayResponseRatebyLevels<-function(dset,col="job",resp="Good_Bad",bins=10,adj
 
   }
 
-  df_tot <- d %>%  dplyr::group_by_(naml) %>% dplyr::summarise(tot=n())
+  df_tot <- d %>%  dplyr::group_by_(naml) %>% dplyr::summarise(tot=dplyr::n())
 
   df_tot<-as.data.frame(df_tot)
 
 
   val<-1
   filter_criteria<-lazyeval::interp(~y==x, .values = list(y=as.name(resp),x=val))
-  df_one <- d %>%  dplyr::filter(d[[resp]]==1) %>% dplyr::group_by_(naml) %>% dplyr::summarise(bad=n())
+  df_one <- d %>%  dplyr::filter(d[[resp]]==1) %>% dplyr::group_by_(naml) %>% dplyr::summarise(bad=dplyr::n())
 
   df_one<-as.data.frame(df_one)
 
@@ -106,7 +106,7 @@ displayResponseRatebyLevels<-function(dset,col="job",resp="Good_Bad",bins=10,adj
 
   val<-0
   filter_criteria<-lazyeval::interp(~y==x, .values = list(y=as.name(resp),x=val))
-  df_zero <- d %>%  dplyr::filter(d[[resp]]==0) %>% dplyr::group_by_(naml) %>% dplyr::summarise(good=n())
+  df_zero <- d %>%  dplyr::filter(d[[resp]]==0) %>% dplyr::group_by_(naml) %>% dplyr::summarise(good=dplyr::n())
 
   df_zero<-as.data.frame(df_zero)
 
@@ -161,3 +161,4 @@ displayResponseRatebyLevels<-function(dset,col="job",resp="Good_Bad",bins=10,adj
 
   ggplot2::ggplot(df,ggplot2::aes(x=df[[1]],y=df[["response_pct"]])) + ggplot2::geom_bar(stat = "identity") + ggplot2::labs(x=col,y="Response rate")
 }
+

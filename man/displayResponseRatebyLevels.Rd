@@ -4,8 +4,13 @@
 \alias{displayResponseRatebyLevels}
 \title{displayResponseRatebyLevels}
 \usage{
-displayResponseRatebyLevels(dset, col = "job", resp = "Good_Bad",
-  bins = 10, adjFactor = 0.5)
+displayResponseRatebyLevels(
+  dset,
+  col = "job",
+  resp = "Good_Bad",
+  bins = 10,
+  adjFactor = 0.5
+)
 }
 \arguments{
 \item{dset}{The data frame containing the data set}

@@ -4,8 +4,7 @@
 \alias{numericToCategorical}
 \title{numericToCategorical}
 \usage{
-numericToCategorical(dset, col = "job", resp = "y", bins = 10,
-  adjFactor = 0.5)
+numericToCategorical(dset, col = "job", resp = "y", bins = 10, adjFactor = 0.5)
 }
 \arguments{
 \item{dset}{The data frame containing the data set}

@@ -9,11 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This package provides utility functions for  binary classification problems. 
+Provides utility functions for  binary classification problems. 
 
-This package provides functions to collapse levels of an attribute based on response rates.
+'CollapseLevels' provides functions to collapse levels of an attribute based on response rates.
 
-It also provides functions to compute and display Information Value, and Weight of Evidence for attributes,and to convert numeric variables to categorical by binning.
+Also provides functions to compute and display Information Value, and Weight of Evidence for attributes,and to convert numeric variables to categorical by binning.
 
 These functions only work for binary classification problems.
 
